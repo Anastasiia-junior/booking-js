@@ -1,14 +1,4 @@
-'use strict';
 
-//получает рандомное число в заданном диапазоне от min до max
-var getRandomArbitrary = function (min, max) {
-    return Math.floor( Math.random() * (max - min) + min) ;
-  };
-
-//массив количества объявлений
-var adCount = ['1', '2', '3', '4', '5', '6', '7', '8'];
-
- 
 //создает массив случайной длины с характеристиками 
 var getArrayOfFeatures = function (arr,) {
     var randomFeatures = [];
@@ -25,6 +15,8 @@ var getArrayOfFeatures = function (arr,) {
 };
 
 
+
+
 //получает массив из строк photos в произвольном порядке
 var getPhotos = function (arr) {
     var photosArray = [];
@@ -34,18 +26,6 @@ var getPhotos = function (arr) {
     };
     return photosArray;
 };
-
-// // массив аватарок
-var arrOfAvatars = [
-    'img/avatars/user01.png', 
-    'img/avatars/user02.png', 
-    'img/avatars/user03.png', 
-    'img/avatars/user04.png', 
-    'img/avatars/user05.png',
-    'img/avatars/user06.png',
-    'img/avatars/user07.png',
-    'img/avatars/user08.png'    
-];
 
 
 // шаблон заполнения объекта объявления для массива объявлений
@@ -114,38 +94,12 @@ getArrayOfAds(adCount);
 
 console.log(ads);
 
-var blockMap = document.querySelector('.map');
-
-blockMap.classList.remove('map--faded');
-
-/* создаем и добавляем DOM элементы в разметку */
-
-//нашли контейнеры, куда будем вставлять объявления и иконки 
-var conteinerForIcons = document.querySelector('.map__pins'); 
-var conteinerForAds = document.querySelector('.map');
-
- 
-//нашли содержимое шаблона для отрисовки иконки объявления
-var similarIconTemplate = document.querySelector('template').content.querySelector('.map__pin'); 
 
 //нашли содержимое шаблона для объявлений
 var similarAdsTemplate = document.querySelector('template').content.querySelector('.map__card');
 
-//сщздали фрагмент, куда в дальнейшем будем складывать иконки объявлений 
-var fragmentOfIcons = document.createDocumentFragment();
 
-var getElementsOfIcons = function (arr) {
-    for (var i = 0; i < ads.length; i++) {
-        var iconElement = similarIconTemplate.cloneNode(true);
-        iconElement.style.left = `${arr[i].location.x}px`;
-        iconElement.style.top = `${arr[i].location.y - 44}px`;
-        iconElement.querySelector('img').src = arr[i].author.avatar;
-    
-        fragmentOfIcons.appendChild(iconElement);
-    };
-}
 
-getElementsOfIcons(ads);
 
 // //создали фрагмент, куда в дальнейшем будем вкладывать объявления
 var fragmentOfAds = document.createDocumentFragment(); 
@@ -153,8 +107,6 @@ var fragmentOfAds = document.createDocumentFragment();
 function getElementsOfAds () {
     
     for (var i = 0; i < ads.length; i++) {
-
-        
     
         let adsElement = similarAdsTemplate.cloneNode(true); //клонировали содержимое шаблона 
         adsElement.querySelector('.popup__avatar').src = ads[i].author.avatar; 
@@ -174,11 +126,16 @@ function getElementsOfAds () {
        
         fragmentOfAds.appendChild(adsElement);
     };
+
 };
 
+//нашли контейнеры, куда будем вставлять объявления и иконки 
+var conteinerForAds = document.querySelector('.map');
+
+//отрисовывает все объявления и скрывает их со страницы
 getElementsOfAds(ads);
-
-
-conteinerForIcons.appendChild(fragmentOfIcons);
-
 conteinerForAds.insertBefore(fragmentOfAds, document.querySelector('.map__filters-container'));
+
+//скрывает все отрисованные объявления 
+    let arrOfAds = document.querySelectorAll('.map__card');
+    arrOfAds.forEach(elem => elem.classList.add('hidden')) ;

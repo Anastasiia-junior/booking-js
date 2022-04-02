@@ -1,7 +1,7 @@
 window.data = (function () {
     return {
         //массив количества объявлений
-adCount: ['1', '2', '3', '4', '5', '6', '7', '8'],
+adsCount: ['1', '2', '3', '4', '5', '6', '7', '8'],
 // // массив аватарок
 arrOfAvatars: [
     'img/avatars/user01.png', 
